@@ -1,5 +1,5 @@
 CFLAGS := -Wall -g -std=c++20
-test_args := --arg1 value1 -a2=value2
+test_args := --arg1 -123 --arg2 123 --arg3 0.123 --arg4 c --arg5 wqerty --arg6 {12, 23, 34} --arg7 {str1, str2,str3 , str4, str5} --arg8 {10:ten, 20:twenty, 30:thirty, 40:fourty, 50:fifty}
 
 argparser.a: argparser.o
 	ar rcs $@ $^
