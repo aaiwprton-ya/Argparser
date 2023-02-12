@@ -16,37 +16,234 @@ Argparser::~Argparser()
 {
 	for (auto item: this->args)
 	{
-		switch (item.second.first)
+		switch (item.second.second[0])
 		{
 		case ArgType::ARGTYPE_INT:
-			delete (int*)item.second.second;
+			delete (int*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_UINT:
-			delete (unsigned int*)item.second.second;
+			delete (unsigned int*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_FLOAT:
-			delete (float*)item.second.second;
+			delete (float*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_DOUBLE:
-			delete (double*)item.second.second;
+			delete (double*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_CHAR:
-			delete (char*)item.second.second;
+			delete (char*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_STRING:
-			delete (std::string*)item.second.second;
+			delete (std::string*)item.second.first;
 			break;
 		case ArgType::ARGTYPE_VECTOR:
-			delete item.second.second; // TODO what type?
+			switch (item.second.second[1])
+			{
+			case ArgType::ARGTYPE_INT:
+				delete (std::vector<int>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_UINT:
+				delete (std::vector<unsigned int>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_FLOAT:
+				delete (std::vector<float>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_DOUBLE:
+				delete (std::vector<double>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_CHAR:
+				delete (std::vector<char>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_STRING:
+				delete (std::vector<std::string>*)item.second.first;
+				break;
+			default:
+				break;
+			}
 			break;
 		case ArgType::ARGTYPE_LIST:
-			delete item.second.second; // TODO what type?
+			switch (item.second.second[1])
+			{
+			case ArgType::ARGTYPE_INT:
+				delete (std::list<int>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_UINT:
+				delete (std::list<unsigned int>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_FLOAT:
+				delete (std::list<float>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_DOUBLE:
+				delete (std::list<double>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_CHAR:
+				delete (std::list<char>*)item.second.first;
+				break;
+			case ArgType::ARGTYPE_STRING:
+				delete (std::list<std::string>*)item.second.first;
+				break;
+			default:
+				break;
+			}
 			break;
 		case ArgType::ARGTYPE_MAP:
-			delete item.second.second; // TODO what type?
+			switch (item.second.second[1])
+			{
+			case ArgType::ARGTYPE_INT:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<int, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<int, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<int, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<int, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<int, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<int, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			case ArgType::ARGTYPE_UINT:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<unsigned int, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<unsigned int, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<unsigned int, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<unsigned int, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<unsigned int, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<unsigned int, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			case ArgType::ARGTYPE_FLOAT:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<float, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<float, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<float, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<float, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<float, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<float, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			case ArgType::ARGTYPE_DOUBLE:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<double, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<double, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<double, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<double, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<double, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<double, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			case ArgType::ARGTYPE_CHAR:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<char, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<char, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<char, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<char, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<char, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<char, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			case ArgType::ARGTYPE_STRING:
+				switch (item.second.second[2])
+				{
+				case ArgType::ARGTYPE_INT:
+					delete (std::map<std::string, int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_UINT:
+					delete (std::map<std::string, unsigned int>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_FLOAT:
+					delete (std::map<std::string, float>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_DOUBLE:
+					delete (std::map<std::string, double>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_CHAR:
+					delete (std::map<std::string, char>*)item.second.first;
+					break;
+				case ArgType::ARGTYPE_STRING:
+					delete (std::map<std::string, std::string>*)item.second.first;
+					break;
+				default:
+					break;
+				}
+				break;
+			default:
+				break;
+			}
 			break;
 		default:
-			delete item.second.second;
 			break;
 		}
 	}
@@ -109,7 +306,9 @@ bool Argparser::findArg(
 	value.remove_prefix(valStart);
 	value.remove_suffix(this->s_data.length() - valEnd);
 	
-	this->args[name] = std::pair(type, this->m_constructArg(type, value, subType1, subType2));
+	this->args[name] = std::pair(
+		this->m_constructArg(type, value, subType1, subType2), 
+		std::vector<ArgType> {type, subType1, subType2});
 	return true;
 }
 

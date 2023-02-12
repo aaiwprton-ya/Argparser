@@ -27,7 +27,7 @@ enum class ArgType : uint8_t
 class Argparser
 {
 	std::string s_data;
-	std::map<std::string, std::pair<ArgType, void*>> args;
+	std::map<std::string, std::pair<void*, std::vector<ArgType>>> args;
 public:
 	Argparser();
 	Argparser(std::string_view data);
@@ -46,7 +46,7 @@ public:
 	template <typename T>
 	T* getArg(std::string name, T** pp_value)
 	{
-		*pp_value = (T*)this->args[name].second;
+		*pp_value = (T*)this->args[name].first;
 		return *pp_value;
 	}
 private:
