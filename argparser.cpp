@@ -273,26 +273,36 @@ bool Argparser::findArg(
 		ArgType subType1, 
 		ArgType subType2)
 {
-	size_t entry = this->s_data.find("--" + name);
+	size_t entry = this->s_data.find(" --" + name + " ");
 	if (entry == std::string::npos)
 	{
-		entry = this->s_data.find("-" + shortName);
-	}
-	if (entry != std::string::npos)
-	{
-		if ((this->s_data.find("--" + name, entry + 1) != std::string::npos) || 
-			(this->s_data.find("-" + shortName, entry + 1) != std::string::npos))
+		entry = this->s_data.find(" -" + shortName + " ");
+		if (entry == std::string::npos)
 		{
-			throw std::runtime_error("Double entry argument \"" + name + "\"");
+			if (required)
+			{
+				throw std::runtime_error("Not faund required argument \"" + name + "\"");
+			} else
+			{
+				return false;
+			}
+		} else
+		{
+			entry += 1;
+			if (this->s_data.find(" -" + shortName + " ", entry + 1) != std::string::npos)
+			{
+				throw std::runtime_error("Double entry argument \"" + shortName + "\"");
+			}
 		}
 	} else
 	{
-		if (required)
+		entry += 1;
+		if (this->s_data.find(" --" + name + " ", entry + 1) != std::string::npos)
 		{
-			throw std::runtime_error("Not faund required argument \"" + name + "\"");
-		} else
+			throw std::runtime_error("Double entry argument \"" + name + "\"");
+		} else if (this->s_data.find(" -" + shortName + " ", entry + 1) != std::string::npos)
 		{
-			return false;
+			throw std::runtime_error("Double entry argument \"" + name + " and " + shortName + "\"");
 		}
 	}
 	
